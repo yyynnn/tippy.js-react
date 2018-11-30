@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import tippy from 'tippy.js'
 
 // These props are not native to `tippy.js` and are specific to React only.
-const REACT_ONLY_PROPS = ['children', 'onCreate', 'isVisible', 'isEnabled']
+const REACT_ONLY_PROPS = ['children', 'onCreate', 'isVisible', 'isEnabled', 'className']
 
 // Avoid Babel's large '_objectWithoutProperties' helper function.
 function getNativeTippyProps(props) {
@@ -26,6 +26,7 @@ class Tippy extends React.Component {
       .isRequired,
     children: PropTypes.element.isRequired,
     onCreate: PropTypes.func,
+    className: PropTypes.string,
     isVisible: PropTypes.bool,
     isEnabled: PropTypes.bool
   }
@@ -94,12 +95,12 @@ class Tippy extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className={this.props.className}>
         {this.props.children}
         {this.isReactElementContent &&
           this.state.isMounted &&
           ReactDOM.createPortal(this.props.content, this.container)}
-      </React.Fragment>
+      </div>
     )
   }
 }
